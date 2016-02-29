@@ -1,0 +1,24 @@
+{
+  "name": "gulp-spdownload",
+  "version": "0.0.1",
+  "description": "Gulp plugin to download files from SharePoint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/picologic/gulp-spdownload.git"
+  },
+  "keywords": [
+    "SharePoint",
+    "365",
+    "SPO"
+  ],
+  "author": "Glen Cooper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/picologic/gulp-spdownload/issues"
+  },
+  "homepage": "https://github.com/picologic/gulp-spdownload#readme"
+}
