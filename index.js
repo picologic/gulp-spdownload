@@ -16,7 +16,7 @@ module.exports = function(options, urls) {
 	var downloadCount = 0;
 
 	function download(url, opts) {
-		var filename = url.replace(/^.*[\\\/]/, ''); // temporary hack
+		var filename = url.replace(/^.*[\\\/]/, '');
 
 		httpreq.get(options.siteUrl + url, opts, function(err, res) {
 			if (err) return console.log(err);
