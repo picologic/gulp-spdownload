@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/picologic/gulp-spdownload/issues"
   },
-  "homepage": "https://github.com/picologic/gulp-spdownload#readme"
+  "homepage": "https://github.com/picologic/gulp-spdownload#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "httpreq": "^0.4.16",
+    "node-spoauth": "^1.0.0",
+    "through": "^2.3.8"
+  }
 }
