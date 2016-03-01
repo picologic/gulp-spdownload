@@ -16,9 +16,11 @@ module.exports = function(options, urls) {
 	var downloadCount = 0;
 
 	function download(url, opts) {
+		console.log(url);
 		var filename = url.replace(/^.*[\\\/]/, '');
+		var downloadUrl = getDownloadUrl(options.siteUrl, url);
 
-		httpreq.get(options.siteUrl + url, opts, function(err, res) {
+		httpreq.get(downloadUrl, opts, function(err, res) {
 			if (err) return console.log(err);
 			
 			var file = new gutil.File({ path: filename, contents: new Buffer(res.body) });
@@ -31,6 +33,46 @@ module.exports = function(options, urls) {
 				stream.emit('end');
 			}
 
+		});
+	};
+
+	function getDownloadUrl(siteUrl, fileUrl) {
+		// fix up url to combine
+		if (endsWith(siteUrl, '/')) {
+			siteUrl = siteUrl.substring(0, siteUrl.length - 1);
+		}
+		if (!startsWith(fileUrl, '/')) {
+			fileUrl = '/' + fileUrl;
+		}
+
+		var fullUrl = siteUrl + fileUrl;
+		if (fullUrl.toLowerCase().indexOf('_catalogs/masterpage') !== -1) {
+			// master page url - use download link
+			var root = siteUrl + '/_layouts/15/download.aspx?SourceUrl=';
+			var path = getServerRelativePath(fullUrl);
+			fullUrl = root + fixedEncodeURIComponent(path);
+		}
+
+		return fullUrl;
+	};
+
+	function getServerRelativePath(fullUrl) {
+		var tmp = fullUrl.substring(fullUrl.indexOf('://') + 3);
+		tmp = tmp.substring(tmp.indexOf('/'));
+		return tmp;
+	};
+
+	function endsWith(str, suffix) {
+		return str.indexOf(suffix, str.length - suffix.length) !== -1;
+	};
+
+	function startsWith(str, prefix) {
+		return str.indexOf(prefix) === 0;
+	};
+
+	function fixedEncodeURIComponent(str) {
+		return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+			return '%' + c.charCodeAt(0).toString(16);
 		});
 	};
 
