@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/picologic/gulp-spdownload#readme",
   "dependencies": {
+    "binaryextensions": "^1.0.0",
     "gulp": "^3.9.1",
     "httpreq": "^0.4.16",
     "node-spoauth": "^1.0.0",

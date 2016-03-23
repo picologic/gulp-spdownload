@@ -2,7 +2,8 @@ var SP = require('node-spoauth'),
 	httpreq = require('httpreq'),
 	consts = require('constants'),
 	through = require('through'),
-	gutil = require('gulp-util');
+	gutil = require('gulp-util'),
+	binaryextensions = require('binaryextensions');
 
 var PLUGIN_NAME = 'gulp-spdownload';
 
@@ -16,9 +17,9 @@ module.exports = function(options, urls) {
 	var downloadCount = 0;
 
 	function download(url, opts) {
-		console.log(url);
 		var filename = url.replace(/^.*[\\\/]/, '');
 		var downloadUrl = getDownloadUrl(options.siteUrl, url);
+		opts.binary = isBinary(filename);
 
 		httpreq.get(downloadUrl, opts, function(err, res) {
 			if (err) return console.log(err);
@@ -74,6 +75,12 @@ module.exports = function(options, urls) {
 		return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
 			return '%' + c.charCodeAt(0).toString(16);
 		});
+	};
+
+	function isBinary(filename) {
+		var parts = filename.split('.');
+		var ext = parts[parts.length-1].toLowerCase();
+		return binaryextensions.indexOf(ext) > -1;
 	};
 
 	var client = new SP.RestService(options.siteUrl);
