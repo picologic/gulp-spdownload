@@ -1,6 +1,6 @@
 {
   "name": "gulp-spdownload",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Gulp plugin to download files from SharePoint",
   "main": "index.js",
   "scripts": {
